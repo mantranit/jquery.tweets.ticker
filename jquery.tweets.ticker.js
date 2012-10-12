@@ -11,7 +11,8 @@
 			callback : function(){},
 			show : 3,
 			auto : 5000,
-			startTweet: 0
+			startTweet: 0,
+			popupIndent: true
 		}, settings);
 		var methods = {
 			currentTweet: settings.startTweet,
@@ -41,6 +42,20 @@
 				
 				var dateArr = pastTime.split(' ');
 				return dateArr[4].replace(/\:\d+$/,'')+' '+dateArr[2]+' '+dateArr[1]+(dateArr[3]!=curDate.getFullYear()?' '+dateArr[3]:'');
+			},
+			popupIndent: function($this){
+				var windowOptions = 'scrollbars=yes,resizable=yes,toolbar=no,location=yes',
+				width = 600, height = 500, winHeight = screen.height, winWidth = screen.width;
+				$this.find('.entryMore a').click(function(e){
+					left = Math.round((winWidth / 2) - (width / 2));
+					top = 0;
+					if (winHeight > height) { top = Math.round((winHeight / 2) - (height / 2));	}
+					var popup = window.open($(this).attr('href'), 'intent', windowOptions + ',width=' + width + ',height=' + height + ',left=' + left + ',top=' + top);
+					if(popup != null && typeof(popup) != 'undefined'){
+						e.returnValue = false;
+						e.preventDefault && e.preventDefault();
+					}
+				});
 			},
 			renderHtml: function($this, arr, limit){
 				/* return immediately if arr have not content */
@@ -73,6 +88,11 @@
 						$(this).slideDown(settings.speed);
 					}
 				});
+				/* trick when click on indent link */
+				if(settings.popupIndent)	{
+					methods.popupIndent($this);
+				}
+				/* run auto if it set */
 				if(settings.auto) {
 					setTimeout(methods.transitionEnd, settings.auto);
 				}
