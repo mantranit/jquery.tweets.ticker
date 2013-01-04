@@ -113,7 +113,7 @@
 		};
 		return this.each(function(){
 			var $this = $(this);
-			var total = parseInt(settings.tweetUsers.length/25 + 0.5);
+			var total = Math.round(settings.tweetUsers.length/25 + 0.5);
 			var buildString, url, c, i, arr = [], countAjax = 0, limit = settings.count;
 			console.log(total);
 			for(c = 0; c < total; c++) {
