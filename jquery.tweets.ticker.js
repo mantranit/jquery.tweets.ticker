@@ -115,7 +115,7 @@
 			var $this = $(this);
 			var total = Math.round(settings.tweetUsers.length/25 + 0.5);
 			var buildString, url, c, i, arr = [], countAjax = 0, limit = settings.count;
-			console.log(total);
+			
 			for(c = 0; c < total; c++) {
 				buildString = "";
 				i = c * 25;
